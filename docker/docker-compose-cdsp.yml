@@ -76,3 +76,16 @@ services:
       - ./logs:/app/logs
     volumes_from:
       - tmp
+
+  up_simulator:
+    container_name: up_simulator
+    cpus: 0.15
+    mem_limit: 750m
+    build:
+      context: ../up_simulator  # context set to repo root
+      dockerfile: Dockerfile.up_simulator
+    ports:
+      - 5000:5000
+    entrypoint: ["/bin/bash", "./run.sh"]
+    deploy:
+      replicas: 1

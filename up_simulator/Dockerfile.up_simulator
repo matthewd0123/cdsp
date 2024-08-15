@@ -1,0 +1,21 @@
+FROM ubuntu:focal
+
+RUN mkdir /automation
+RUN DEBIAN_FRONTEND=noninteractive apt update -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install apt-utils  -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install python3.8 -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install python3-pip -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install python3-markupsafe -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install python3.8-dev -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install python3-tk -y 
+RUN DEBIAN_FRONTEND=noninteractive apt install git -y 
+
+
+
+EXPOSE 5000
+
+ADD run.sh .
+ADD up_simulator-0.1.1.dev0-py3-none-any.whl .
+RUN pip install up_simulator-0.1.1.dev0-py3-none-any.whl
+
+CMD [ "/bin/bash","./run.sh" ]
